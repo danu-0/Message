@@ -150,4 +150,10 @@ class AuthController extends Controller
         auth()->guard('api')->logout();
         return response()->json(ApiFormatter::createJson(200, 'Logout Successfully'), 200);
     }
+
+    public function index()
+    {
+        $users = User::with(['sendingMessage','acceptingMessage'])->get();
+        return response()->json(ApiFormatter::createJson(200, 'List of users and their messages', $users), 200);
+    }
 }

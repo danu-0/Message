@@ -24,6 +24,16 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
 
+    public function sendingMessage()
+    {
+        return $this->hasMany(Pesan::class, 'user_id');
+    }
+
+    public function acceptingMessage()
+    {
+        return $this->hasMany(Pesan::class, 'recipient_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
