@@ -95,7 +95,7 @@ class AuthController extends Controller
             }
 
             // Create the user
-             User::create([
+            User::create([
                 'name' => $params['name'],
                 'email' => $params['email'],
                 'password' => Hash::make($params['password']),
@@ -153,7 +153,7 @@ class AuthController extends Controller
 
     public function index()
     {
-        $users = User::with(['sendingMessage','acceptingMessage'])->get();
-        return response()->json(ApiFormatter::createJson(200, 'List of users and their messages', $users), 200);
+        $users = User::with('contact')->get();
+        return response()->json(ApiFormatter::createJson(200, 'List of users and their contact', $users), 200);
     }
 }

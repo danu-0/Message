@@ -14,7 +14,7 @@ class PesanController extends Controller
 {
     public function index()
     {
-        $pesan = Pesan::with('User', 'recipient')->get();
+        $pesan = Pesan::with(['detailSender','detailRecipient'])->get();
         return response()->json(['status' => 'success', 'data' => $pesan]);
     }
 

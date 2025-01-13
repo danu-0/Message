@@ -24,14 +24,9 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
 
-    public function sendingMessage()
+    public function contact()
     {
-        return $this->hasMany(Pesan::class, 'user_id');
-    }
-
-    public function acceptingMessage()
-    {
-        return $this->hasMany(Pesan::class, 'recipient_id');
+        return $this->hasMany(Contact::class, 'contact_user_id');
     }
 
     /**

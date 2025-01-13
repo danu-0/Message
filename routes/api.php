@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('user',[AuthController::class,'index']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
@@ -29,7 +30,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('me',                [AuthController::class, 'me']);
     Route::get('refresh',           [AuthController::class, 'refresh']);
     Route::get('logout',            [AuthController::class, 'logout']);
-    Route::get('Users',             [AuthController::class, 'index']);
 
     Route::prefix('pesan')->group(function () {
         Route::get('/',             [PesanController::class, 'index']);
