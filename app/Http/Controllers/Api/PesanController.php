@@ -15,7 +15,8 @@ class PesanController extends Controller
     public function index()
     {
         $pesan = Pesan::with(['detailSender','detailRecipient'])->get();
-        return response()->json(['status' => 'success', 'data' => $pesan]);
+        $response = ApiFormatter::createJson(200, 'Get pesan successfully', $pesan);
+        return response()->json($response);
     }
 
     // public function indexByUser($user_id)

@@ -4,8 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PesanController;
-
+use App\Models\Contact;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,18 +24,35 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('user',[AuthController::class,'index']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => 'auth:api'], function () {
+
     Route::get('me',                [AuthController::class, 'me']);
     Route::get('refresh',           [AuthController::class, 'refresh']);
     Route::get('logout',            [AuthController::class, 'logout']);
 
     Route::prefix('pesan')->group(function () {
-        Route::get('/',             [PesanController::class, 'index']);
+        Route::get('',             [PesanController::class, 'index']);
         Route::get('/{user_id}',    [PesanController::class, 'indexByUser']);
-        Route::post('/',            [PesanController::class, 'create']);
+        Route::post('',            [PesanController::class, 'create']);
+    });
+
+    Route::prefix('contact')->group(function () {
+        Route::get('', [ContactController::class, 'index']);
+        Route::get('/{id}', [ContactController::class, 'indexById']);
+        Route::get('/user/{id}', [ContactController::class, 'indexByUserId']);
+        Route::post('', [ContactController::class, 'create']);
+        Route::delete('/{id}', [ContactController::class, 'delete']);
+    });
+
+    Route::prefix('notification')->group(function () {
+        Route::get('', [NotificationController::class, 'index']);
+        Route::get('/{id}', [NotificationController::class, 'indexById']);
+        Route::get('/user/{id}', [NotificationController::class, 'indexByUserId']);
+        Route::post('', [NotificationController::class, 'create']);
+        Route::patch('/{id}', [NotificationController::class, 'update']);
+        Route::delete('/{id}', [NotificationController::class, 'delete']);
     });
 });

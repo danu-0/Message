@@ -29,6 +29,17 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Contact::class, 'contact_user_id');
     }
 
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'user_id');
+    }
+
+
+    // public function notifications()
+    // {
+    //     return $this->hasMany(Notification::class, 'user_id');
+    // }
+
     /**
      * The attributes that should be hidden for serialization.
      *

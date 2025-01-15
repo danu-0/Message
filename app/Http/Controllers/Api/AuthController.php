@@ -151,9 +151,4 @@ class AuthController extends Controller
         return response()->json(ApiFormatter::createJson(200, 'Logout Successfully'), 200);
     }
 
-    public function index()
-    {
-        $users = User::with('contact')->get();
-        return response()->json(ApiFormatter::createJson(200, 'List of users and their contact', $users), 200);
-    }
 }
