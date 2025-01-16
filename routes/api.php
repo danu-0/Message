@@ -23,7 +23,7 @@ use App\Models\Contact;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('user',[AuthController::class,'index']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
@@ -35,8 +35,13 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::prefix('pesan')->group(function () {
         Route::get('',             [PesanController::class, 'index']);
-        Route::get('/{user_id}',    [PesanController::class, 'indexByUser']);
+        Route::get('/{id}',    [PesanController::class, 'indexById']);
+        Route::get('/user/{id}',    [PesanController::class, 'indexByUserId']);
         Route::post('',            [PesanController::class, 'create']);
+        Route::patch('/{id}', [PesanController::class, 'update']);
+        Route::delete('/{id}', [PesanController::class, 'delete']);
+
+
     });
 
     Route::prefix('contact')->group(function () {

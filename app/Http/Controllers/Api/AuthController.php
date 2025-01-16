@@ -151,4 +151,10 @@ class AuthController extends Controller
         return response()->json(ApiFormatter::createJson(200, 'Logout Successfully'), 200);
     }
 
+    public function index(){
+        $user = User::all();
+        $response = ApiFormatter::createJson(200,'Get all User',$user);
+        return response()->json($response);
+    }
+
 }
